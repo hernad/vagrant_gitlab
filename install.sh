@@ -10,3 +10,4 @@ fi
 
 bundle install
 bundle exec librarian-chef install
+bundle exec librarian-chef update
