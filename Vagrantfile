@@ -50,7 +50,7 @@ Vagrant::Config.run do |config|
       :gitlab => {
          "git_revision" => "master",
          "git_repository" => "git://github.com/knowhow/gitlabhq.git",
-         "app_path" => "/opt/redmine",
+         "app_path" => "/opt/gitlab",
          "app_server_name" => "gitlab.test.out.ba",
 
          "unicorn_conf" => {
@@ -62,8 +62,8 @@ Vagrant::Config.run do |config|
 
          "db" => {
            "rails_adapter" => "mysql2", #ruby 1.9 expects mysql2
-           "db_name" => "redmine_production",
-           "db_user" => "redmine",
+           "db_name" => "gitlab_production",
+           "db_user" => "gitlab",
            "db_pass" => "pwd",
            "db_host" => "localhost",
            "load_sql_file" => nil
