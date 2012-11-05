@@ -13,9 +13,6 @@ Vagrant::Config.run do |config|
 
     #chef.add_recipe('database::mysql')
 
-    # This is where all the magic happens.
-    # see site-cookbooks/gitlab/
-
     chef.add_recipe('mysql::client')
     chef.add_recipe('mysql::ruby')
     #chef.add_recipe('mysql::server')
@@ -25,9 +22,9 @@ Vagrant::Config.run do |config|
     chef.add_recipe('postgresql::ruby')
 
 
-    chef.add_recipe('redmine::default')
-    chef.add_recipe('redmine::nginx')
-    chef.add_recipe('redmine::database')
+    chef.add_recipe('gitlab::default')
+    chef.add_recipe('gitlab::nginx')
+    chef.add_recipe('gitlab::database')
 
     chef.json = {
      :rvm => {

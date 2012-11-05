@@ -19,7 +19,7 @@ cookbook 'rvm',
   :ref => 'd836a2fb92861a2'
 
 
-#cookbook 'gitlab',
-#  :git => 'git@github.com:hernad/chef_gitlab.git'
+cookbook 'gitlab',
+  :git => 'git://github.com/hernad/chef_gitlab.git'
 
 
