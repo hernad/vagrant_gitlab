@@ -36,45 +36,50 @@ Vagrant::Config.run do |config|
           { :name => 'rake'},
           { :name => 'chef'}
         ],
-
-         :gems => {
+        :gems => {
            'ruby-1.9.3-p286' => [
                     { :name   => 'unicorn-rails' }
                    ]
-         },
+        },
 
       },
 
       :mysql => { "server_root_password" => "rootpwd" },
 
       :gitlab => {
-         "git_revision" => "master",
-         "git_repository" => "git://github.com/knowhow/gitlabhq.git",
-         "app_path" => "/opt/gitlab",
-         "app_server_name" => "gitlab.test.out.ba",
-
+        "user" => "www-data",
+        "group" => "www-data",
+        "home" => "/var/www",
+        "git_revision" => "master",
+        "git_repository" => "git://github.com/hernad/gitlabhq.git",
+        "app_home" => "/opt/gitlab",
+        "app_server_name" => "gitlab.test.out.ba",
+        "ruby" => "ruby-1.9.3-p286",
+        "rvm_gemset" => "gitlab",
+        "gitolite" => {
+            "user" => "git",
+            "group" => "git",
+            "git_home" => "/var/git",
+            "app_home" => "/var/git/gitolite",
+            "umask" => "0007",
+            "url" => "git://github.com/sitaramc/gitolite.git"
+         },
          "unicorn_conf" => {
             "pid" => "/tmp/pids/unicorn.pid",
             "sock" => "/tmp/sockets/unicorn.sock",
             "error_log" => "unicorn.error.log",
             "access_log" => "unicorn.access.log"
          },
-
          "db" => {
            "rails_adapter" => "mysql2", #ruby 1.9 expects mysql2
            "db_name" => "gitlab_production",
+           "db_name_test" => "gitlab_test",
+           "db_name_development" => "gitlab_development",
            "db_user" => "gitlab",
            "db_pass" => "pwd",
            "db_host" => "localhost",
            "load_sql_file" => nil
-         },
-
-         "ruby" => "ruby-1.9.3-p286",
-         "rvm_gemset" => "gitlab",
-         #"rmagick" => "disabled",
-         "nginx_filenames" => ["gitlab.conf"],
-         "ngnix_listen" => "*:80"
-
+         }
       }
     }
   end
