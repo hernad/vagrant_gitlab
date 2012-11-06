@@ -47,6 +47,18 @@ Vagrant::Config.run do |config|
       :mysql => { "server_root_password" => "rootpwd" },
 
       :gitlab => {
+        "site" => "gitlab.test.out.ba",
+        "email" => "noreply@gitlab.test.out.ba",
+        "project_limit" => "20",
+        "ldap" => false,
+            #host: '_your_ldap_server'
+            #base: '_the_base_where_you_search_for_users'
+            #port: 636
+            #uid: 'sAMAccountName'
+            #method: 'ssl' / plain
+            #bind_dn: '_the_full_dn_of_the_user_you_will_bind_with'
+            #password: '_the_password_of_the_bind_user'
+        "git_max_size" => 5242880,  #5 megabytes,
         "user" => "www-data",
         "group" => "www-data",
         "home" => "/var/www",
@@ -59,8 +71,8 @@ Vagrant::Config.run do |config|
         "gitolite" => {
             "user" => "git",
             "group" => "git",
-            "git_home" => "/var/git",
-            "app_home" => "/var/git/gitolite",
+            "git_home" => "/home/git",
+            "gitolite_home" => "/home/git/gitolite",
             "umask" => "0007",
             "url" => "git://github.com/sitaramc/gitolite.git"
          },
