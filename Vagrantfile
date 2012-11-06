@@ -50,7 +50,7 @@ Vagrant::Config.run do |config|
         "site" => "gitlab.test.out.ba",
         "email" => "noreply@gitlab.test.out.ba",
         "project_limit" => "20",
-        "ldap" => false,
+        "use_ldap" => false,
             #host: '_your_ldap_server'
             #base: '_the_base_where_you_search_for_users'
             #port: 636
@@ -65,7 +65,6 @@ Vagrant::Config.run do |config|
         "git_revision" => "master",
         "git_repository" => "git://github.com/hernad/gitlabhq.git",
         "app_home" => "/opt/gitlab",
-        "app_server_name" => "gitlab.test.out.ba",
         "ruby" => "ruby-1.9.3-p286",
         "rvm_gemset" => "gitlab",
         "gitolite" => {
@@ -96,3 +95,8 @@ Vagrant::Config.run do |config|
     }
   end
 end
+
+#~/.netrc
+#machine gitlab.test.out.ba
+#login bakir@bring.out.ba
+#password mypwd
