@@ -36,6 +36,7 @@ Vagrant::Config.run do |config|
         :global_gems => [
           { :name => 'bundler'},
           { :name => 'rake'},
+          { :name => 'sshkey'},
           { :name => 'chef'}
         ],
         :gems => {
