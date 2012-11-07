@@ -1,7 +1,9 @@
+host_ip = '192.168.3.14'
+
 Vagrant::Config.run do |config|
   config.vm.box = "precise32-b2"
   #config.vm.box_url = "http://files.vagrantup.com/precise32.box"
-  config.vm.network :hostonly, '192.168.3.14'
+  config.vm.network :hostonly, host_ip 
   #config.vm.boot_mode = :gui
 
   config.vm.provision :chef_solo do |chef|
@@ -45,8 +47,16 @@ Vagrant::Config.run do |config|
       :gitlab => {
         "site" => "gitlab.test.out.ba",
         "https"  => true,
-        "email" => "noreply@gitlab.test.out.ba",
         "project_limit" => "20",
+        "email" => "noreply@gitlab.test.out.ba",
+        "postfix" => {
+             "mail_relay_networks" => host_ip + "/32",
+             "mail_type" => "master",
+             "mydomain" => "test.out.ba",
+             "myorigin" => "test.out.ba",
+             "relayhost" => "[zimbra.bring.out.ba]",
+              "smtp_use_tls" => "no"
+        }, 
         "use_ldap" => false,
             #host: '_your_ldap_server'
             #base: '_the_base_where_you_search_for_users'

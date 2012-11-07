@@ -13,6 +13,7 @@ cookbook 'postgresql'
 cookbook 'database'
 cookbook 'mysql'
 cookbook 'nginx'
+cookbook 'postfix'
 
 cookbook 'rvm',
   :git => 'git://github.com/hernad/chef-rvm.git',
