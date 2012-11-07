@@ -37,17 +37,14 @@ Vagrant::Config.run do |config|
           { :name => 'chef'}
         ],
         :gems => {
-           'ruby-1.9.3-p286' => [
-                    { :name   => 'unicorn-rails' }
-                   ]
+           'ruby-1.9.3-p286' => [ { :name   => 'unicorn-rails' } ]
         },
 
       },
-
       :mysql => { "server_root_password" => "rootpwd" },
-
       :gitlab => {
         "site" => "gitlab.test.out.ba",
+        "https"  => true,
         "email" => "noreply@gitlab.test.out.ba",
         "project_limit" => "20",
         "use_ldap" => false,
