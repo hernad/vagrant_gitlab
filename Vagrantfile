@@ -28,6 +28,10 @@ Vagrant::Config.run do |config|
     chef.add_recipe('gitlab::nginx')
     chef.add_recipe('gitlab::database')
 
+    if ENV['GMAIL_PASSWORD'].nil? or ENV['GMAIL_USER'].nil?
+       puts "morate definisati GMAIL_PASSWORD = #{ENV['GMAIL_PASSWORD']} i GMAIL_USER = #{ENV['GMAIL_USER']} environment varijable koje ce koristiti postfix !"
+       exit 1
+    end
     chef.json = {
      :rvm => {
         :rubies => [ "1.9.3-p286" ],
@@ -54,8 +58,8 @@ Vagrant::Config.run do |config|
            "smtp_tls_cafile" => "/etc/ssl/certs/ca-certificates.crt",
            "smtp_sasl_security_options" => "",
            "smtp_sasl_auth_enable" => "yes",
-           "smtp_sasl_user_name" => "bakir.husremovic@gmail.com",
-           "smtp_sasl_passwd" => "bakamraka"
+           "smtp_sasl_user_name" => ENV['GMAIL_USER'],
+           "smtp_sasl_passwd" => ENV['GMAIL_PASSWORD']
       },
       
   
@@ -82,20 +86,20 @@ Vagrant::Config.run do |config|
         "app_home" => "/opt/gitlab",
         "ruby" => "ruby-1.9.3-p286",
         "rvm_gemset" => "gitlab",
-        "gitolite" => {
-            "user" => "git",
-            "group" => "git",
-            "git_home" => "/home/git",
-            "gitolite_home" => "/home/git/gitolite",
-            "umask" => "0007",
-            "url" => "git://github.com/sitaramc/gitolite.git"
-         },
-         "unicorn_conf" => {
-            "pid" => "/tmp/pids/unicorn.pid",
-            "sock" => "/tmp/sockets/unicorn.sock",
-            "error_log" => "unicorn.error.log",
-            "access_log" => "unicorn.access.log"
-         },
+        #"gitolite" => {
+        #   "user" => "git",
+        #   "group" => "git",
+        #   "home" => "/home/git",
+        #   "gitolite_home" => "/home/git/gitolite",
+        #   "umask" => "0007",
+        #   "url" => "git://github.com/sitaramc/gitolite.git"
+        #},
+        #"unicorn_conf" => {
+        #    "pid" => "/tmp/pids/unicorn.pid",
+        #    "sock" => "/tmp/sockets/unicorn.sock",
+        #   "error_log" => "unicorn.error.log",
+        #    "access_log" => "unicorn.access.log"
+        #},
          "db" => {
            "rails_adapter" => "mysql2", #ruby 1.9 expects mysql2
            "db_name" => "gitlab_production",
