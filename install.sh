@@ -8,6 +8,8 @@ if [ "$RVM" != "1" ]; then
    echo "rvm 1.9.3 instaliran"
 fi
 
+source /etc/profile.d/rvm.sh
+
 bundle install
 bundle exec librarian-chef install
 bundle exec librarian-chef update
