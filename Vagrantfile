@@ -44,20 +44,27 @@ Vagrant::Config.run do |config|
         },
 
       },
+      :postfix => {
+           "mail_relay_networks" => host_ip + "/32",
+           "mail_type" => "client", #ako hocemo da bude relayhost onda je on mail type
+           "mydomain" => "test.out.ba",
+           "myorigin" => "test.out.ba",
+           "smtp_use_tls" => "yes",
+           "relayhost" => "[smtp.gmail.com]:587",
+           "smtp_tls_cafile" => "/etc/ssl/certs/ca-certificates.crt",
+           "smtp_sasl_security_options" => "",
+           "smtp_sasl_auth_enable" => "yes",
+           "smtp_sasl_user_name" => "bakir.husremovic@gmail.com",
+           "smtp_sasl_passwd" => "bakamraka"
+      },
+      
+  
       :mysql => { "server_root_password" => "rootpwd" },
       :gitlab => {
         "site" => "gitlab.test.out.ba",
         "https"  => true,
         "project_limit" => "20",
-        "email" => "noreply@gitlab.test.out.ba",
-        "postfix" => {
-             "mail_relay_networks" => host_ip + "/32",
-             "mail_type" => "master",
-             "mydomain" => "test.out.ba",
-             "myorigin" => "test.out.ba",
-             "relayhost" => "[zimbra.bring.out.ba]",
-              "smtp_use_tls" => "no"
-        }, 
+        "email" => "bakir.husremovic@bring.out.ba", 
         "use_ldap" => false,
             #host: '_your_ldap_server'
             #base: '_the_base_where_you_search_for_users'
