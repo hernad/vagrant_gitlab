@@ -1,7 +1,8 @@
 name "gitlab"
 description "gitlab server"
 
-run_list "recipe[build-essential]", "recipe[rvm::system]", "recipe[mysql::client]", "recipe[mysql::ruby]", "recipe[postgresql::client]", "recipe[postgresql:ruby]"
+run_list "recipe[build-essential]", "recipe[rvm::system]", "recipe[mysql::client]", "recipe[mysql::ruby]", "recipe[postgresql::client]", "recipe[postgresql::ruby]"
+
 #env_run_lists "prod" => ["recipe[apache2]"], "staging" => ["recipe[apache2::staging]"], "_default" => []
 #default_attributes "apache2" => { "listen_ports" => [ "80", "443" ] }
 #override_attributes "apache2" => { "max_children" => "50" }   
@@ -27,7 +28,7 @@ override_attributes(
         },
       },
       :postfix => {
-           "mail_relay_networks" => host_ip + "/32",
+           "mail_relay_networks" => "127.0.0.1/8",
            "mail_type" => "client", #ako hocemo da bude relayhost onda je on mail type
            "mydomain" => "test.out.ba",
            "myorigin" => "test.out.ba",
