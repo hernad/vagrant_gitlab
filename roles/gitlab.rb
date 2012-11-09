@@ -11,7 +11,7 @@ if ENV['GMAIL_PASSWORD'].nil? or ENV['GMAIL_USER'].nil?
     exit 1
 end
 
-override_attributes (
+override_attributes(
       :rvm => {
         :rubies => [ "1.9.3-p286" ],
         :default_ruby => '1.9.3',
