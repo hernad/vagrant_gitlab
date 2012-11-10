@@ -17,7 +17,7 @@ cookbook 'postfix'
 
 cookbook 'rvm',
   :git => 'git://github.com/hernad/chef-rvm.git',
-  :ref => 'd836a2fb92861a2'
+  :ref => 'master'
 
 
 cookbook 'gitlab',
