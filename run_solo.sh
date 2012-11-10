@@ -1,5 +1,18 @@
 #!/bin/bash
 
+function gem_instaliran {
+
+`gem list --local | grep -q $1`
+ret=$?
+if [[ $ret -eq 0 ]]; then
+  echo "$1 instaliran"
+else
+  gem install $1 --no-ri --no-rdoc
+fi
+
+}
+
+
 function set_rvm {
 
 # provjeri da li ima rvm-a
@@ -27,18 +40,12 @@ fi
 
 set_rvm
 
-`gem list --local | grep bundler`
-ret=$?
-
-if [[ $ret -eq 0 ]]; then
-  echo "bundler instaliran"
-else
-  gem install bundler --no-ri --no-rdoc
-fi
+gem_instaliran bundler
 
 bundle install
 bundle exec librarian-chef install
 bundle exec librarian-chef update
 
+gem_instaliran chef
 
 chef-solo -c solo.rb -j node.json
