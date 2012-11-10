@@ -3,7 +3,7 @@ description "gitlab server"
 
 run_list "recipe[build-essential]", "recipe[rvm::system]", 
          "recipe[mysql::client]", "recipe[mysql::ruby]", 
-         "recipe[postgresql::client]", "recipe[postgresql::ruby]"
+         "recipe[postgresql::client]", "recipe[postgresql::ruby]",
          "recipe[gitlab::default]", "recipe[gitlab::nginx]", "recipe[gitlab::database]"
 
 #env_run_lists "prod" => ["recipe[apache2]"], "staging" => ["recipe[apache2::staging]"], "_default" => []
