@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function set_rvm {
+
 # provjeri da li ima rvm-a
 `which rvm`
 ret=$?
@@ -9,7 +10,10 @@ if [[ $ret -eq 0 ]]; then
 else
   source /etc/profile.d/rvm.sh
 fi
+
 }
+
+set_rvm
 
 RVM=`rvm list rubies | grep -c 1.9.3`
 
