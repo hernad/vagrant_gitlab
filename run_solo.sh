@@ -25,11 +25,16 @@ if [ "$RVM" != "1" ]; then
    echo "rvm 1.9.3 instaliran"
 fi
 
-# provjeri da li ima rvm-a
-`which rvm`
+set_rvm
+
+`gem list --local | grep bundler`
 ret=$?
 
-set_rvm
+if [[ $ret -eq 0 ]]; then
+  echo "bundler instaliran"
+else
+  gem install bundler --no-ri --no-rdoc
+fi
 
 bundle install
 bundle exec librarian-chef install
