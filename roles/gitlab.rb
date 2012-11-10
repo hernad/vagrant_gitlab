@@ -16,7 +16,7 @@ override_attributes(
       :rvm => {
         :rubies => [ "1.9.3-p286" ],
         :default_ruby => '1.9.3',
-        :group_users => ["vagrant", "www-data"],
+        :group_users => ["www-data"],
         :global_gems => [
           { :name => 'bundler'},
           { :name => 'rake'},
