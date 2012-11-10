@@ -1,4 +1,4 @@
-ur_dir = Dir.pwd
+cur_dir = Dir.pwd
 
 file_cache_path cur_dir
 cookbook_path   cur_dir + "/cookbooks"
