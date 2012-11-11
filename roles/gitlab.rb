@@ -18,6 +18,8 @@ envars.each { |e| ENV[e].nil? ? envars_defined = false : nil }
 
 if not envars_defined
    puts "morate definisati OS envars #{envars.join(' ') }"
+   require 'pp'
+   pp ENV
    exit 1
 end
 
