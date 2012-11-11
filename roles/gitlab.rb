@@ -10,7 +10,7 @@ run_list "recipe[build-essential]", "recipe[rvm::system]",
 #default_attributes "apache2" => { "listen_ports" => [ "80", "443" ] }
 #override_attributes "apache2" => { "max_children" => "50" }   
 
-envars = %{GMAIL_PASSWORD GMAIL_USER MYSQL_ROOT_PWD MYSQL_PWD}
+envars = %{GMAIL_PASSWORD GMAIL_USER MYSQL_ROOT_PWD MYSQL_PWD OS_SERVER_NAME OS_DNS_DOMAIN}
 envars = envars.split(" ")
 
 envars_defined = true
