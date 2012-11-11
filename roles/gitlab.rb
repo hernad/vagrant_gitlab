@@ -14,7 +14,7 @@ envars = %{GMAIL_PASSWORD GMAIL_USER MYSQL_ROOT_PWD MYSQL_PWD}
 envars = envars.split(" ")
 
 envars_defined = true
-envars.each { || ENV[e].nil? ? envars_defined = false : nil }
+envars.each { |e| ENV[e].nil? ? envars_defined = false : nil }
 
 if not envars_defined
    puts "morate definisati OS envars #{envars.join(' ') }"
