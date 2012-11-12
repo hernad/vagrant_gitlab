@@ -27,7 +27,7 @@ end
 
 override_attributes(
       :rvm => {
-        :rubies => [ ruby_rvm ],
+        :rubies => [ rvm_ruby ],
         :default_ruby => '1.9.3',
         :group_users => ["www-data"],
         :global_gems => [
