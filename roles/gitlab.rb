@@ -8,6 +8,18 @@ run_list "recipe[build-essential]", "recipe[rvm::system]",
 
 rvm_ruby="ruby-1.9.3-p327"
 
+gitlab_repos = ENV["GITLAB_REPOS"]
+if gitlab_repos.nil?
+  gitlab_repos = "git://github.com/hernad/gitlabhq.git"
+end
+
+gitlab_version = ENV["GITLAB_VERSION"]
+if gitlab_version.nil?
+  gitlab_version = "master"
+end
+
+
+
 #env_run_lists "prod" => ["recipe[apache2]"], "staging" => ["recipe[apache2::staging]"], "_default" => []
 #default_attributes "apache2" => { "listen_ports" => [ "80", "443" ] }
 #override_attributes "apache2" => { "max_children" => "50" }   
@@ -64,8 +76,8 @@ override_attributes(
         "user" => "www-data",
         "group" => "www-data",
         "home" => "/var/www",
-        "git_revision" => "master",
-        "git_repository" => "git://github.com/hernad/gitlabhq.git",
+        "git_revision" => gitlab_version,
+        "git_repository" => gitlab_repos,
         "app_home" => "/opt/gitlab",
         "ruby" => rvm_ruby,
         "rvm_gemset" => "gitlab",
