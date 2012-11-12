@@ -6,6 +6,8 @@ run_list "recipe[build-essential]", "recipe[rvm::system]",
          "recipe[postgresql::client]", "recipe[postgresql::ruby]",
          "recipe[gitlab::default]", "recipe[gitlab::nginx]", "recipe[gitlab::database]"
 
+rvm_ruby="ruby-1.9.3-p327"
+
 #env_run_lists "prod" => ["recipe[apache2]"], "staging" => ["recipe[apache2::staging]"], "_default" => []
 #default_attributes "apache2" => { "listen_ports" => [ "80", "443" ] }
 #override_attributes "apache2" => { "max_children" => "50" }   
@@ -25,7 +27,7 @@ end
 
 override_attributes(
       :rvm => {
-        :rubies => [ "1.9.3-p286" ],
+        :rubies => [ ruby_rvm ],
         :default_ruby => '1.9.3',
         :group_users => ["www-data"],
         :global_gems => [
@@ -35,7 +37,7 @@ override_attributes(
           { :name => 'chef'}
         ],
         :gems => {
-           'ruby-1.9.3-p286' => [ { :name   => 'unicorn-rails' } ]
+           rvm_ruby => [ { :name   => 'unicorn-rails' } ]
         },
       },
       :postfix => {
@@ -65,7 +67,7 @@ override_attributes(
         "git_revision" => "master",
         "git_repository" => "git://github.com/hernad/gitlabhq.git",
         "app_home" => "/opt/gitlab",
-        "ruby" => "ruby-1.9.3-p286",
+        "ruby" => rvm_ruby,
         "rvm_gemset" => "gitlab",
          "db" => {
            "rails_adapter" => "mysql2", #ruby 1.9 expects mysql2
