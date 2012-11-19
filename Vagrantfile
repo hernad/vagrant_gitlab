@@ -1,4 +1,29 @@
 host_ip = '192.168.3.14'
+rvm_ruby="ruby-1.9.3-p327"
+
+envars = %{GMAIL_PASSWORD GMAIL_USER MYSQL_ROOT_PWD MYSQL_PWD OS_SERVER_NAME OS_DNS_DOMAIN}
+envars = envars.split(" ")
+
+envars_defined = true
+envars.each { |e| ENV[e].nil? ? envars_defined = false : nil }
+
+if not envars_defined
+   puts "morate definisati OS envars #{envars.join(' ') }"
+   require 'pp'
+   pp ENV
+   exit 1
+end
+
+gitlab_repos = ENV["GITLAB_REPOS"]
+if gitlab_repos.nil?
+  gitlab_repos = "git://github.com/hernad/gitlabhq.git"
+end
+
+gitlab_version = ENV["GITLAB_VERSION"]
+if gitlab_version.nil?
+  gitlab_version = "master"
+end
+
 
 Vagrant::Config.run do |config|
   config.vm.box = "precise32-b2"
@@ -34,7 +59,7 @@ Vagrant::Config.run do |config|
     end
     chef.json = {
      :rvm => {
-        :rubies => [ "1.9.3-p286" ],
+        :rubies => [ rvm_ruby ],
         :default_ruby => '1.9.3',
         :group_users => ["vagrant", "www-data"],
         :global_gems => [
@@ -44,7 +69,7 @@ Vagrant::Config.run do |config|
           { :name => 'chef'}
         ],
         :gems => {
-           'ruby-1.9.3-p286' => [ { :name   => 'unicorn-rails' } ]
+           rvm_ruby => [ { :name   => 'unicorn-rails' } ]
         },
 
       },
@@ -63,12 +88,12 @@ Vagrant::Config.run do |config|
       },
       
   
-      :mysql => { "server_root_password" => "rootpwd" },
+      :mysql => { "server_root_password" => ENV['MYSQL_ROOT_PWD'] },
       :gitlab => {
-        "site" => "gitlab.test.out.ba",
+        "site" => ENV['OS_SERVER_NAME'],
         "https"  => true,
         "project_limit" => "20",
-        "email" => "bakir.husremovic@bring.out.ba", 
+        "email" => ENV['GMAIL_USER'],
         "use_ldap" => false,
             #host: '_your_ldap_server'
             #base: '_the_base_where_you_search_for_users'
@@ -81,32 +106,18 @@ Vagrant::Config.run do |config|
         "user" => "www-data",
         "group" => "www-data",
         "home" => "/var/www",
-        "git_revision" => "master",
-        "git_repository" => "git://github.com/hernad/gitlabhq.git",
+        "git_revision" => gitlab_version,
+        "git_repository" => gitlab_repos,
         "app_home" => "/opt/gitlab",
-        "ruby" => "ruby-1.9.3-p286",
+        "ruby" => rvm_ruby,
         "rvm_gemset" => "gitlab",
-        #"gitolite" => {
-        #   "user" => "git",
-        #   "group" => "git",
-        #   "home" => "/home/git",
-        #   "gitolite_home" => "/home/git/gitolite",
-        #   "umask" => "0007",
-        #   "url" => "git://github.com/sitaramc/gitolite.git"
-        #},
-        #"unicorn_conf" => {
-        #    "pid" => "/tmp/pids/unicorn.pid",
-        #    "sock" => "/tmp/sockets/unicorn.sock",
-        #   "error_log" => "unicorn.error.log",
-        #    "access_log" => "unicorn.access.log"
-        #},
          "db" => {
            "rails_adapter" => "mysql2", #ruby 1.9 expects mysql2
            "db_name" => "gitlab_production",
            "db_name_test" => "gitlab_test",
            "db_name_development" => "gitlab_development",
            "db_user" => "gitlab",
-           "db_pass" => "pwd",
+           "db_pass" => ENV['MYSQL_PWD'],
            "db_host" => "localhost",
            "load_sql_file" => nil
          }
